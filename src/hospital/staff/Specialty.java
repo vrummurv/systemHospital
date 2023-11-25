@@ -14,8 +14,7 @@ public enum Specialty {
     OTORRINOLARINGOLOGISTA(9), 
     PEDIATRA(10), 
     PSIQUIATRA(11), 
-    UROLOGISTA(12), 
-    ADMINISTRATIVO(13);
+    UROLOGISTA(12);
     
     private final int id;
     private static final Map<Integer, Specialty> map = new HashMap<>();

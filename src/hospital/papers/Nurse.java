@@ -7,8 +7,29 @@ import hospital.SystemHospital;
 import hospital.staff.*;
 
 public class Nurse extends Employee {
+    private Specialty specialty;
     public Nurse(String name, Specialty specialty, String position, int password) {
-        super(name, specialty, position, password);
+        super(name, position, password);
+        this.specialty = specialty;
+    }
+
+    public String toString() {
+        return ("Nome: " + getName() + "\n" + "Especialidade: " + getSpecialty() + "\n" + "Cargo: " + getPosition()
+                + "\n" + "ID: " + getId());
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+
+    }
+
+    @Override
+    public int getSalary() {
+        return 1000 + 10 * getSpecialty().getId();
     }
 
     public void updateAppointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap) {
@@ -19,11 +40,12 @@ public class Nurse extends Employee {
         input.nextLine(); // Consumindo o \n
         Patient patient = system.findPatientById(idPatient);
 
-        if(patient == null) {
+        MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
+
+        if (patient == null || medicalRecords == null) {
+            System.out.println("Paciente não encontrado ou conulta não encontrada.");
             return;
         }
-
-        MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
 
         medicalRecords.toString();
         System.out.println("\nId da consulta: ");

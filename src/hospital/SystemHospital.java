@@ -19,7 +19,7 @@ public class SystemHospital {
         this.patients = new ArrayList<>();
         this.medicalRecordsMap = new HashMap<>();
 
-        Employee admin = new Admin("admin", Specialty.ADMINISTRATIVO, "Administrativo", 1234);
+        Employee admin = new Admin("admin", "Administrativo", 1234);
         employees.add(admin);
         System.out.println(admin.toString());
 
@@ -129,7 +129,7 @@ public class SystemHospital {
 
     public void listEmployees() {
         for (Employee employee : employees) {
-            System.out.println(employee.toString());
+            System.out.println(employee.getAll());
         }
     }
 

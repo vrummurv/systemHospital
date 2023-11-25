@@ -1,4 +1,7 @@
 import java.util.*;
+
+import javax.print.Doc;
+
 import hospital.*;
 import hospital.papers.Admin;
 import hospital.papers.Doctor;
@@ -60,7 +63,6 @@ public class App {
                                 System.out.println("13. Listar Funcionários");
                                 System.out.println("==================");
 
-
                                 System.out.println("0. Logout");
 
                                 System.out.print("\nEscolha uma opção: ");
@@ -108,8 +110,12 @@ public class App {
                                         System.out.println("================================");
                                         System.out.println("Digite o ID do médico que deseja atualizar: ");
                                         int idDocUpdate = scanner.nextInt();
-                                        Employee doctorUpdate = system.findEmployeeById(idDocUpdate);
+                                        Doctor doctorUpdate = (Doctor) system.findEmployeeById(idDocUpdate);
                                         scanner.nextLine(); // Limpar o buffer do teclado
+
+                                        if (doctorUpdate == null) {
+                                            break;
+                                        }
 
                                         System.out.print("\nNome do Médico: ");
                                         String docNameUpdate = scanner.nextLine();
@@ -176,8 +182,12 @@ public class App {
                                         System.out.println("================================");
                                         System.out.println("Digite o ID do enfermeiro que deseja atualizar: ");
                                         int idNurseUpdate = scanner.nextInt();
-                                        Employee nurseUpdate = system.findEmployeeById(idNurseUpdate);
+                                        Nurse nurseUpdate = (Nurse) system.findEmployeeById(idNurseUpdate);
                                         scanner.nextLine(); // Limpar o buffer do teclado
+
+                                        if (nurseUpdate == null) {
+                                            break;
+                                        }
 
                                         System.out.print("\nNome do Enfermeiro: ");
                                         String nurseNameUpdate = scanner.nextLine();
@@ -229,6 +239,10 @@ public class App {
                                         int idPatientUpdate = scanner.nextInt();
                                         Patient patientUpdate = system.findPatientById(idPatientUpdate);
                                         scanner.nextLine(); // Limpar o buffer do teclado
+
+                                        if (patientUpdate == null) {
+                                            break;
+                                        }
 
                                         System.out.print("\nNome do Paciente: ");
                                         String patientNameUpdate = scanner.nextLine();
@@ -283,7 +297,7 @@ public class App {
                                 System.out.println("1. Cadastrar Consulta");
                                 System.out.println("2. Atualizar Consulta");
                                 System.out.println("3. Excluir Consulta");
-                                System.out.println("4. Listar Consultas");                                
+                                System.out.println("4. Listar Consultas");
                                 System.out.println("5. Ver Consulta por ID de Paciente");
                                 System.out.println("==================");
                                 System.out.println("0. Logout");
@@ -317,7 +331,7 @@ public class App {
                                         System.out.println("================================");
                                         break;
 
-                                        case 5:
+                                    case 5:
                                         System.out.println("Digite o ID do paciente: ");
                                         int idPatient = scanner.nextInt();
                                         scanner.nextLine(); // Limpar o buffer do teclado
@@ -327,7 +341,8 @@ public class App {
                                             break;
                                         }
 
-                                        System.out.println("====== Consultas cadastradas do paciente " + patient.getName() + " ======");
+                                        System.out.println("====== Consultas cadastradas do paciente "
+                                                + patient.getName() + " ======");
                                         system.listMedicalRecordsByPatientId(idPatient);
                                     default:
                                         System.out.println("Opção inválida. Tente novamente.");
@@ -347,7 +362,7 @@ public class App {
                                 System.out.println("1. Atualizar Prontuário");
                                 System.out.println("2. Listar Consultas");
                                 System.out.println("==================");
-                                System.out.println("0. Sair");
+                                System.out.println("0. Logout");
 
                                 System.out.print("\nEscolha uma opção: ");
 

@@ -3,15 +3,14 @@ package hospital.staff;
 public class Employee {
 
   private String name;
-  private Specialty specialty;
   private Position position;
   private int id;
   private static int nextId = 1;
   private int password;
+  private int salary = 1000;
 
-  public Employee(String name, Specialty specialty, String position, int password) {
+  public Employee(String name, String position, int password) {
     this.name = name;
-    this.specialty = specialty;
     this.id = nextId;
     nextId++;
     this.password = password;
@@ -37,9 +36,6 @@ public class Employee {
     return ("Nome: " +
         name +
         "\n" +
-        "Especialidade: " +
-        specialty +
-        "\n" +
         "Cargo: " +
         position +
         "\n" +
@@ -47,12 +43,22 @@ public class Employee {
         id);
   }
 
-  public String getName() {
-    return name;
+  public String getAll() {
+    return ("Nome: " +
+        name +
+        "\n" +
+        "Cargo: " +
+        position +
+        "\n" +
+        "ID: " +
+        id +
+        "\n" +
+        "Salário: " +
+        salary);
   }
 
-  public Specialty getSpecialty() {
-    return specialty;
+  public String getName() {
+    return name;
   }
 
   public Position getPosition() {
@@ -67,12 +73,12 @@ public class Employee {
     return password;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public int getSalary() {
+    return salary;
   }
 
-  public void setSpecialty(Specialty specialty) {
-    this.specialty = specialty;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public void setPosition(Position position) {

@@ -7,9 +7,29 @@ import hospital.SystemHospital;
 import hospital.staff.*;
 
 public class Doctor extends Employee {
+    Specialty specialty;
 
     public Doctor(String name, Specialty specialty, String position, int password) {
-        super(name, specialty, position, password);
+        super(name, position, password);
+        this.specialty = specialty;
+    }
+
+    public String toString() {
+        return ("Nome: " + getName() + "\n" + "Especialidade: " + getSpecialty() + "\n" + "Cargo: " + getPosition()
+                + "\n" + "ID: " + getId());
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    @Override
+    public int getSalary() {
+        return 1000 + 100 * getSpecialty().getId();
     }
 
     public void appointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap, Doctor doctor) {
@@ -20,6 +40,10 @@ public class Doctor extends Employee {
         input.nextLine(); // Consumir a quebra de linha pendente
 
         Patient patient = system.findPatientById(idPatient);
+
+        if (patient == null) {
+            return;
+        }
 
         System.out.println("\nMotivo da consulta: ");
         String reasonOfAppointment = input.nextLine();
@@ -70,8 +94,8 @@ public class Doctor extends Employee {
 
         MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
 
-        if (medicalRecords == null) {
-            System.out.println("Prontuário não encontrado!");
+        if (medicalRecords == null || patient == null) {
+            System.out.println("Prontuário não encontrado ou paciente não encontrado!");
             return;
         }
 
@@ -96,8 +120,8 @@ public class Doctor extends Employee {
 
         MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
 
-        if (medicalRecords == null) {
-            System.out.println("Prontuário não encontrado!");
+        if (patient == null || medicalRecords == null) {
+            System.out.println("Paciente não encontrado ou conulta não encontrada.");
             return;
         }
 

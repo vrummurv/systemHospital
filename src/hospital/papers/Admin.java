@@ -7,8 +7,8 @@ import hospital.staff.Specialty;
 
 public class Admin extends Employee {
 
-  public Admin(String name, Specialty specialty, String position, int password) {
-    super(name, specialty, position, password);
+  public Admin(String name, String position, int password) {
+    super(name, position, password);
   }
 
   public void addEmployee(List employees, Employee employee) {
@@ -32,7 +32,7 @@ public class Admin extends Employee {
     System.out.println("====== Médico removido com sucesso! ======");
   }
 
-  public void updateDoctor(List employees, Employee doctor, String name, int password) {
+  public void updateDoctor(List employees, Doctor doctor, String name, int password) {
     Scanner scanner = new Scanner(System.in);
 
     if (employees.contains(doctor)) {
@@ -46,14 +46,14 @@ public class Admin extends Employee {
       System.out.println("Selcione o número de umas dessas especialidades: ");
       int idSpecialty = scanner.nextInt();
 
-       while (idSpecialty < 1 || idSpecialty > 13) {
+      while (idSpecialty < 1 || idSpecialty > 13) {
         System.out.println("Opção inválida. Tente novamente.");
         for (Specialty spe : Specialty.values()) {
-            System.out.println(spe.getId() + " : " + spe.name());
+          System.out.println(spe.getId() + " : " + spe.name());
         }
         System.out.println("Selcione o número de umas dessas especialidades: ");
         idSpecialty = scanner.nextInt();
-    }
+      }
 
       Specialty specialty = Specialty.valueOf(idSpecialty);
       doctor.setSpecialty(specialty);
@@ -78,7 +78,7 @@ public class Admin extends Employee {
     System.out.println("====== Enfermeiro removido com sucesso! ======");
   }
 
-  public void updateNurse(List employees, Employee nurse, String name, int password) {
+  public void updateNurse(List employees, Nurse nurse, String name, int password) {
     Scanner scanner = new Scanner(System.in);
 
     if (employees.contains(nurse)) {
