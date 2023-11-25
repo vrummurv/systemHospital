@@ -45,6 +45,16 @@ public class Admin extends Employee {
       }
       System.out.println("Selcione o número de umas dessas especialidades: ");
       int idSpecialty = scanner.nextInt();
+
+       while (idSpecialty < 1 || idSpecialty > 13) {
+        System.out.println("Opção inválida. Tente novamente.");
+        for (Specialty spe : Specialty.values()) {
+            System.out.println(spe.getId() + " : " + spe.name());
+        }
+        System.out.println("Selcione o número de umas dessas especialidades: ");
+        idSpecialty = scanner.nextInt();
+    }
+
       Specialty specialty = Specialty.valueOf(idSpecialty);
       doctor.setSpecialty(specialty);
 
@@ -81,6 +91,16 @@ public class Admin extends Employee {
       }
       System.out.println("Selcione o número de umas dessas especialidades: ");
       int idSpecialty = scanner.nextInt();
+
+      while (idSpecialty < 1 || idSpecialty > 13) {
+        System.out.println("Opção inválida. Tente novamente.");
+        for (Specialty spe : Specialty.values()) {
+          System.out.println(spe.getId() + " : " + spe.name());
+        }
+        System.out.println("Selcione o número de umas dessas especialidades: ");
+        idSpecialty = scanner.nextInt();
+      }
+
       Specialty specialty = Specialty.valueOf(idSpecialty);
       nurse.setSpecialty(specialty);
 
@@ -96,7 +116,7 @@ public class Admin extends Employee {
   // Dentro do método createPatient em Admin.java
   public void createPatient(Map<Integer, MedicalRecords> medicalRecordsMap, List<Patient> patients, String patientName,
       String birthDate) {
-        
+
     Patient newPatient = new Patient(patientName, birthDate); // Crie um novo paciente
     MedicalRecords newMedicalRecords = new MedicalRecords(newPatient); // Associe um novo prontuário médico ao paciente
     medicalRecordsMap.put(newPatient.getId(), newMedicalRecords); // Armazene a associação no mapa medicalRecordsMap

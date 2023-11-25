@@ -27,10 +27,26 @@ public class Appointment {
     }
 
     public String toString() {
+
+        if (this.test == "nao") {
+            return "*******************************\n"
+                    + "* Consulta ID: " + id + "\n"
+                    + "* Paciente: " + patient.getName() + "\n"
+                    + "* Paciente ID: " + patient.getId() + "\n"
+                    + "* Médico: " + doctor.getName() + "\n"
+                    + "* Médico ID: " + doctor.getId() + "\n"
+                    + "* Motivo da consulta: " + reasonOfAppointment + "\n"
+                    + "* Sintomas: " + symptoms + "\n"
+                    + "* Diagnóstico: " + diagnosis + "\n"
+                    + "* Prescrição: " + prescription + "\n"
+                    + "*******************************\n";
+        }
         return "*******************************\n"
                 + "* Consulta ID: " + id + "\n"
                 + "* Paciente: " + patient.getName() + "\n"
+                + "* Paciente ID: " + patient.getId() + "\n"
                 + "* Médico: " + doctor.getName() + "\n"
+                + "* Médico ID: " + doctor.getId() + "\n"
                 + "* Motivo da consulta: " + reasonOfAppointment + "\n"
                 + "* Sintomas: " + symptoms + "\n"
                 + "* Diagnóstico: " + diagnosis + "\n"

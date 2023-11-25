@@ -18,7 +18,6 @@ public class App {
         while (true) {
             System.out.println("\n====== Menu ======");
             System.out.println("1. Login");
-            System.out.println("2. Logout");
             System.out.println("0. Sair");
             System.out.println("==================");
 
@@ -44,21 +43,25 @@ public class App {
                             while (true) {
                                 System.out.println("\n====== Menu ======");
                                 System.out.println("1. Cadastrar Médico");
-                                System.out.println("2. Atulizar Médico");
+                                System.out.println("2. Atualizar Médico");
                                 System.out.println("3. Excluir Médico");
                                 System.out.println("4. Listar Médicos");
                                 System.out.println("==================");
                                 System.out.println("5. Cadastrar Enfermeiro");
-                                System.out.println("6. Atulizar Enfermeiro");
+                                System.out.println("6. Atualizar Enfermeiro");
                                 System.out.println("7. Excluir Enfermeiro");
                                 System.out.println("8. Listar Enfermeiros");
                                 System.out.println("==================");
                                 System.out.println("9. Cadastrar Paciente");
-                                System.out.println("10. Atulizar Paciente");
+                                System.out.println("10. Atualizar Paciente");
                                 System.out.println("11. Excluir Paciente");
                                 System.out.println("12. Listar Pacientes");
                                 System.out.println("==================");
-                                System.out.println("0. Sair");
+                                System.out.println("13. Listar Funcionários");
+                                System.out.println("==================");
+
+
+                                System.out.println("0. Logout");
 
                                 System.out.print("\nEscolha uma opção: ");
 
@@ -70,6 +73,7 @@ public class App {
                                     /* CRUD DE MEDICO */
 
                                     case 0:
+                                        system.logout();
                                         break;
 
                                     case 1:
@@ -81,6 +85,14 @@ public class App {
                                         }
                                         System.out.println("Selcione o número de umas dessas especialidades: ");
                                         int idSpecialty = scanner.nextInt();
+                                        while (idSpecialty < 1 || idSpecialty > 13) {
+                                            System.out.println("Opção inválida. Tente novamente.");
+                                            for (Specialty spe : Specialty.values()) {
+                                                System.out.println(spe.getId() + " : " + spe.name());
+                                            }
+                                            System.out.println("Selcione o número de umas dessas especialidades: ");
+                                            idSpecialty = scanner.nextInt();
+                                        }
                                         Specialty specialty = Specialty.valueOf(idSpecialty);
 
                                         System.out.println("Senha: ");
@@ -139,6 +151,15 @@ public class App {
                                         }
                                         System.out.println("Selcione o número de umas dessas especialidades: ");
                                         int idSpecialtyNurse = scanner.nextInt();
+
+                                        while (idSpecialtyNurse < 1 || idSpecialtyNurse > 13) {
+                                            System.out.println("Opção inválida. Tente novamente.");
+                                            for (Specialty spe : Specialty.values()) {
+                                                System.out.println(spe.getId() + " : " + spe.name());
+                                            }
+                                            System.out.println("Selcione o número de umas dessas especialidades: ");
+                                            idSpecialtyNurse = scanner.nextInt();
+                                        }
                                         Specialty specialtyNurse = Specialty.valueOf(idSpecialtyNurse);
 
                                         System.out.println("Senha: ");
@@ -237,6 +258,11 @@ public class App {
                                         system.listPatients();
                                         System.out.println("================================");
                                         break;
+                                    case 13:
+                                        System.out.println("====== Funcionários cadastrados ======");
+                                        system.listEmployees();
+                                        System.out.println("================================");
+                                        break;
 
                                     default:
                                         System.out.println("Opção inválida. Tente novamente.");
@@ -255,11 +281,12 @@ public class App {
                             while (true) {
                                 System.out.println("\n====== Menu ======");
                                 System.out.println("1. Cadastrar Consulta");
-                                System.out.println("2. Atulizar Consulta");
+                                System.out.println("2. Atualizar Consulta");
                                 System.out.println("3. Excluir Consulta");
-                                System.out.println("4. Listar Consultas");
+                                System.out.println("4. Listar Consultas");                                
+                                System.out.println("5. Ver Consulta por ID de Paciente");
                                 System.out.println("==================");
-                                System.out.println("-1. Sair");
+                                System.out.println("0. Logout");
 
                                 System.out.print("\nEscolha uma opção: ");
 
@@ -268,8 +295,8 @@ public class App {
 
                                 switch (opcaoDoc) {
 
-                                    case -1:
-                                        System.out.println("Saindo do sistema. Até mais!");
+                                    case 0:
+                                        system.logout();
                                         break;
 
                                     case 1:
@@ -289,12 +316,25 @@ public class App {
                                         system.listMedicalRecords();
                                         System.out.println("================================");
                                         break;
+
+                                        case 5:
+                                        System.out.println("Digite o ID do paciente: ");
+                                        int idPatient = scanner.nextInt();
+                                        scanner.nextLine(); // Limpar o buffer do teclado
+
+                                        Patient patient = system.findPatientById(idPatient);
+                                        if (patient == null) {
+                                            break;
+                                        }
+
+                                        System.out.println("====== Consultas cadastradas do paciente " + patient.getName() + " ======");
+                                        system.listMedicalRecordsByPatientId(idPatient);
                                     default:
                                         System.out.println("Opção inválida. Tente novamente.");
                                         break;
                                 }
 
-                                if (opcaoDoc == -1) {
+                                if (opcaoDoc == 0) {
                                     System.out.println("Saindo do sistema. Até mais!");
                                     break;
                                 }
@@ -304,10 +344,10 @@ public class App {
 
                             while (true) {
                                 System.out.println("\n====== Menu ======");
-                                System.out.println("1. Atulizar Prontuário");
+                                System.out.println("1. Atualizar Prontuário");
                                 System.out.println("2. Listar Consultas");
                                 System.out.println("==================");
-                                System.out.println("-1. Sair");
+                                System.out.println("0. Sair");
 
                                 System.out.print("\nEscolha uma opção: ");
 
@@ -316,24 +356,26 @@ public class App {
 
                                 switch (opcaoNurse) {
 
-                                    case -1:
-                                        System.out.println("Saindo do sistema. Até mais!");
+                                    case 0:
+                                        system.logout();
                                         break;
 
                                     case 1:
                                         nurseUser.updateAppointment(system, system.getMedicalRecordsMap());
                                         break;
+
                                     case 2:
                                         System.out.println("====== Consultas cadastradas ======");
                                         system.listMedicalRecords();
                                         System.out.println("================================");
                                         break;
+
                                     default:
                                         System.out.println("Opção inválida. Tente novamente.");
                                         break;
                                 }
 
-                                if (opcaoNurse == -1) {
+                                if (opcaoNurse == 0) {
                                     System.out.println("Saindo do sistema. Até mais!");
                                     break;
                                 }
@@ -343,11 +385,6 @@ public class App {
                         System.out.println("Login ou senha inválidos!");
                     }
                     break;
-
-                case 2:
-                    system.logout();
-                    break;
-
                 case 0:
                     System.out.println("Saindo do sistema. Até mais!");
                     break;

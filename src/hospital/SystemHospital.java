@@ -35,7 +35,6 @@ public class SystemHospital {
         patients.add(patient);
         System.out.println(patient.toString());
 
-
     }
 
     public List<Employee> getEmployees() {
@@ -50,19 +49,8 @@ public class SystemHospital {
         return medicalRecordsMap;
     }
 
-    public boolean login(int id, int password) {
-        if (isLogged) {
-            System.out.println("Você já está logado como " + findEmployeeById(id).getName() + "!");
-            return true;
-        }
-
-        for (Employee employee : employees) {
-            if (employee.getId() == id && employee.getPassword() == password) {
-                isLogged = true;
-                return true;
-            }
-        }
-        return false;
+    public boolean getIsLogged() {
+        return isLogged;
     }
 
     public Employee findEmployeeById(int id) {
@@ -83,6 +71,21 @@ public class SystemHospital {
         }
         System.out.println("Paciente não encontrado!");
         return null;
+    }
+
+    public boolean login(int id, int password) {
+        if (isLogged) {
+            System.out.println("Você já está logado como " + findEmployeeById(id).getName() + "!");
+            return true;
+        }
+
+        for (Employee employee : employees) {
+            if (employee.getId() == id && employee.getPassword() == password) {
+                isLogged = true;
+                return true;
+            }
+        }
+        return false;
     }
 
     public void logout() {
@@ -114,14 +117,20 @@ public class SystemHospital {
 
     public void listPatients() {
         for (Patient patient : patients) {
-                System.out.println(patient.toString());
-                for(MedicalRecords medicalRecords : medicalRecordsMap.values()) {
-                    if(medicalRecords.getPatient().getId() == patient.getId()) {
-                        System.out.println(medicalRecords.toString());
-                    }
+            System.out.println(patient.toString());
+            for (MedicalRecords medicalRecords : medicalRecordsMap.values()) {
+                if (medicalRecords.getPatient().getId() == patient.getId()) {
+                    System.out.println(medicalRecords.toString());
                 }
+            }
         }
 
+    }
+
+    public void listEmployees() {
+        for (Employee employee : employees) {
+            System.out.println(employee.toString());
+        }
     }
 
     public void listMedicalRecords() {
@@ -129,4 +138,12 @@ public class SystemHospital {
             System.out.println(medicalRecords);
         }
     }
+
+    public void listMedicalRecordsByPatientId(int id) {
+        for (MedicalRecords medicalRecords : medicalRecordsMap.values()) {
+            if (medicalRecords.getPatient().getId() == id) {
+                System.out.println(medicalRecords.toString());
+            }
+        }
+    }   
 }

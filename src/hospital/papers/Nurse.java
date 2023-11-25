@@ -19,12 +19,11 @@ public class Nurse extends Employee {
         input.nextLine(); // Consumindo o \n
         Patient patient = system.findPatientById(idPatient);
 
-        MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
-
-        if (medicalRecords == null) {
-            System.out.println("Prontuário não encontrado!");
+        if(patient == null) {
             return;
         }
+
+        MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
 
         medicalRecords.toString();
         System.out.println("\nId da consulta: ");
