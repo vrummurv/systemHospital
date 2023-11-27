@@ -1,18 +1,18 @@
 package hospital.staff;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 
   private String name;
   private Position position;
   private int id;
-  private static int nextId = 1;
   private int password;
-  private int salary = 1000;
+  private double salary = 1000;
 
-  public Employee(String name, String position, int password) {
+  public Employee(String name, String position, int password, int id) {
     this.name = name;
-    this.id = nextId;
-    nextId++;
+    this.id = id;
     this.password = password;
 
     switch (position) {
@@ -73,7 +73,7 @@ public class Employee {
     return password;
   }
 
-  public int getSalary() {
+  public double getSalary() {
     return salary;
   }
 

@@ -5,6 +5,7 @@ import javax.print.Doc;
 import hospital.*;
 import hospital.papers.Admin;
 import hospital.papers.Doctor;
+import hospital.papers.MedicalRecords;
 import hospital.papers.Nurse;
 import hospital.papers.Patient;
 import hospital.staff.Employee;
@@ -17,10 +18,26 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         SystemHospital system = new SystemHospital();
+        Data data = new Data();
+
+        // carregar informações do banco de dados
+
+        for (Employee employee : data.loadEmployees()) {
+            system.addEmployee(employee);
+        }
+
+        for (Patient patient : data.loadPatients()) {
+            system.addPatient(patient);
+        }
+
+        for (Map.Entry<Integer, MedicalRecords> medicalRecords : data.loadMedicalRecordsMap().entrySet()) {
+            system.addMedicalRecords(medicalRecords.getKey(), medicalRecords.getValue());
+        }
 
         while (true) {
             System.out.println("\n====== Menu ======");
             System.out.println("1. Login");
+            System.out.println("2. Salvar dados");
             System.out.println("0. Sair");
             System.out.println("==================");
 
@@ -31,6 +48,7 @@ public class App {
 
             switch (opcao) {
                 case 1:
+
                     System.out.print("\nID: ");
                     int id = scanner.nextInt();
                     System.out.print("Senha: ");
@@ -62,6 +80,8 @@ public class App {
                                 System.out.println("==================");
                                 System.out.println("13. Listar Funcionários");
                                 System.out.println("==================");
+                                System.out.println("14. Salvar dados");
+                                System.out.println("==================");
 
                                 System.out.println("0. Logout");
 
@@ -87,7 +107,7 @@ public class App {
                                         }
                                         System.out.println("Selcione o número de umas dessas especialidades: ");
                                         int idSpecialty = scanner.nextInt();
-                                        while (idSpecialty < 1 || idSpecialty > 13) {
+                                        while (idSpecialty < 1 || idSpecialty > 12) {
                                             System.out.println("Opção inválida. Tente novamente.");
                                             for (Specialty spe : Specialty.values()) {
                                                 System.out.println(spe.getId() + " : " + spe.name());
@@ -101,7 +121,7 @@ public class App {
                                         int passDoc = scanner.nextInt();
 
                                         adminUser.createDoctor(system.getEmployees(), docName, specialty, "Medico",
-                                                passDoc);
+                                                passDoc, system.getEmployees().size() + 1);
                                         break;
 
                                     case 2:
@@ -110,13 +130,15 @@ public class App {
                                         System.out.println("================================");
                                         System.out.println("Digite o ID do médico que deseja atualizar: ");
                                         int idDocUpdate = scanner.nextInt();
-                                        Doctor doctorUpdate = (Doctor) system.findEmployeeById(idDocUpdate);
                                         scanner.nextLine(); // Limpar o buffer do teclado
 
-                                        if (doctorUpdate == null) {
+                                        if (system.findEmployeeById(idDocUpdate) == null || system
+                                                .findEmployeeById(idDocUpdate).getPosition() != Position.MEDICO) {
+                                            System.out.println("Funcionário nao encontrado ou ID invalido");
                                             break;
                                         }
 
+                                        Doctor doctorUpdate = (Doctor) system.findEmployeeById(idDocUpdate);
                                         System.out.print("\nNome do Médico: ");
                                         String docNameUpdate = scanner.nextLine();
 
@@ -133,10 +155,13 @@ public class App {
                                         System.out.println("================================");
                                         System.out.println("Digite o ID do médico que deseja remover: ");
                                         int idDoc = scanner.nextInt();
-                                        Employee doctor = system.findEmployeeById(idDoc);
-                                        if (doctor == null) {
+                                        if (system.findEmployeeById(idDoc) == null || system
+                                                .findEmployeeById(idDoc).getPosition() != Position.MEDICO) {
+                                            System.out.println("Funcionário nao encontrado ou ID invalido");
+
                                             break;
                                         }
+                                        Employee doctor = system.findEmployeeById(idDoc);
                                         adminUser.removeDoctor(system.getEmployees(), doctor);
                                         break;
 
@@ -158,7 +183,7 @@ public class App {
                                         System.out.println("Selcione o número de umas dessas especialidades: ");
                                         int idSpecialtyNurse = scanner.nextInt();
 
-                                        while (idSpecialtyNurse < 1 || idSpecialtyNurse > 13) {
+                                        while (idSpecialtyNurse < 1 || idSpecialtyNurse > 12) {
                                             System.out.println("Opção inválida. Tente novamente.");
                                             for (Specialty spe : Specialty.values()) {
                                                 System.out.println(spe.getId() + " : " + spe.name());
@@ -172,7 +197,7 @@ public class App {
                                         int passNurse = scanner.nextInt();
 
                                         adminUser.createNurse(system.getEmployees(), nurseName, specialtyNurse,
-                                                "Enfermeiro", passNurse);
+                                                "Enfermeiro", passNurse, system.getEmployees().size() + 1);
                                         break;
 
                                     case 6:
@@ -182,13 +207,16 @@ public class App {
                                         System.out.println("================================");
                                         System.out.println("Digite o ID do enfermeiro que deseja atualizar: ");
                                         int idNurseUpdate = scanner.nextInt();
-                                        Nurse nurseUpdate = (Nurse) system.findEmployeeById(idNurseUpdate);
                                         scanner.nextLine(); // Limpar o buffer do teclado
 
-                                        if (nurseUpdate == null) {
+                                        if (system.findEmployeeById(idNurseUpdate) == null || system
+                                                .findEmployeeById(idNurseUpdate).getPosition() != Position.ENFERMEIRO) {
+                                            System.out.println("Funcionário nao encontrado ou ID invalido");
+
                                             break;
                                         }
 
+                                        Nurse nurseUpdate = (Nurse) system.findEmployeeById(idNurseUpdate);
                                         System.out.print("\nNome do Enfermeiro: ");
                                         String nurseNameUpdate = scanner.nextLine();
 
@@ -205,10 +233,14 @@ public class App {
                                         System.out.println("================================");
                                         System.out.println("Digite o ID do enfermeiro que deseja remover: ");
                                         int idNurse = scanner.nextInt();
-                                        Employee nurse = system.findEmployeeById(idNurse);
-                                        if (nurse == null) {
+
+                                        if (system.findEmployeeById(idNurse) == null || system
+                                                .findEmployeeById(idNurse).getPosition() != Position.ENFERMEIRO) {
+                                            System.out.println("Funcionário nao encontrado ou ID invalido");
+
                                             break;
                                         }
+                                        Employee nurse = system.findEmployeeById(idNurse);
                                         adminUser.removeNurse(system.getEmployees(), nurse);
                                         break;
 
@@ -228,7 +260,7 @@ public class App {
                                         String birthDate = scanner.nextLine();
 
                                         adminUser.createPatient(system.getMedicalRecordsMap(), system.getPatients(),
-                                                patientName, birthDate);
+                                                patientName, birthDate, system.getPatients().size() + 1);
                                         break;
 
                                     case 10:
@@ -276,6 +308,12 @@ public class App {
                                         System.out.println("====== Funcionários cadastrados ======");
                                         system.listEmployees();
                                         System.out.println("================================");
+                                        break;
+
+                                    case 14:
+                                        data.saveEmployees(system.getEmployees());
+                                        data.savePatients(system.getPatients());
+                                        data.saveMedicalRecordsMap(system.getMedicalRecordsMap());
                                         break;
 
                                     default:
@@ -400,6 +438,7 @@ public class App {
                         System.out.println("Login ou senha inválidos!");
                     }
                     break;
+
                 case 0:
                     System.out.println("Saindo do sistema. Até mais!");
                     break;

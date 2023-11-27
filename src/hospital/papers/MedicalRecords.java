@@ -1,9 +1,10 @@
 package hospital.papers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicalRecords {
+public class MedicalRecords implements Serializable{
     private Patient patient;
     private int id;
     private static int nextId = 1;

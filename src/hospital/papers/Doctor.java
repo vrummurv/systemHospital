@@ -9,14 +9,20 @@ import hospital.staff.*;
 public class Doctor extends Employee {
     Specialty specialty;
 
-    public Doctor(String name, Specialty specialty, String position, int password) {
-        super(name, position, password);
+    public Doctor(String name, Specialty specialty, String position, int password, int id) {
+        super(name, position, password, id);
         this.specialty = specialty;
     }
 
     public String toString() {
         return ("Nome: " + getName() + "\n" + "Especialidade: " + getSpecialty() + "\n" + "Cargo: " + getPosition()
                 + "\n" + "ID: " + getId());
+    }
+
+    @Override
+    public String getAll() {
+        return ("Nome: " + getName() + "\n" + "Especialidade: " + getSpecialty() + "\n" + "Cargo: " + getPosition()
+                + "\n" + "ID: " + getId() + "\n" + "Salário: " + getSalary());
     }
 
     public Specialty getSpecialty() {
@@ -28,8 +34,8 @@ public class Doctor extends Employee {
     }
 
     @Override
-    public int getSalary() {
-        return 1000 + 100 * getSpecialty().getId();
+    public double getSalary() {        
+        return 1000 + 1000 * specialty.getId();
     }
 
     public void appointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap, Doctor doctor) {

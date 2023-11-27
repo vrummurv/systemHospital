@@ -7,8 +7,8 @@ import hospital.staff.Specialty;
 
 public class Admin extends Employee {
 
-  public Admin(String name, String position, int password) {
-    super(name, position, password);
+  public Admin(String name, String position, int password, int id) {
+    super(name, position, password, id);
   }
 
   public void addEmployee(List employees, Employee employee) {
@@ -21,8 +21,8 @@ public class Admin extends Employee {
 
   /* CRUD DE MEDICO */
 
-  public void createDoctor(List employees, String name, Specialty specialty, String position, int password) {
-    Employee doctor = new Doctor(name, specialty, position, password);
+  public void createDoctor(List employees, String name, Specialty specialty, String position, int password, int id) {
+    Employee doctor = new Doctor(name, specialty, position, password, id);
     addEmployee(employees, doctor);
     System.out.println("====== Médico cadastrado com sucesso! ======");
   }
@@ -67,8 +67,8 @@ public class Admin extends Employee {
 
   /* CRUD DE ENFERMEIRO */
 
-  public void createNurse(List employees, String name, Specialty specialty, String position, int password) {
-    Employee nurse = new Nurse(name, specialty, position, password);
+  public void createNurse(List employees, String name, Specialty specialty, String position, int password, int id) {
+    Employee nurse = new Nurse(name, specialty, position, password, id);
     addEmployee(employees, nurse);
     System.out.println("====== Enfermeiro cadastrado com sucesso! ======");
   }
@@ -115,9 +115,9 @@ public class Admin extends Employee {
 
   // Dentro do método createPatient em Admin.java
   public void createPatient(Map<Integer, MedicalRecords> medicalRecordsMap, List<Patient> patients, String patientName,
-      String birthDate) {
+      String birthDate, int id) {
 
-    Patient newPatient = new Patient(patientName, birthDate); // Crie um novo paciente
+    Patient newPatient = new Patient(patientName, birthDate, id); // Crie um novo paciente
     MedicalRecords newMedicalRecords = new MedicalRecords(newPatient); // Associe um novo prontuário médico ao paciente
     medicalRecordsMap.put(newPatient.getId(), newMedicalRecords); // Armazene a associação no mapa medicalRecordsMap
     patients.add(newPatient); // Adicione o paciente à lista de pacientes

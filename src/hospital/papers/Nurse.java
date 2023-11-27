@@ -8,8 +8,9 @@ import hospital.staff.*;
 
 public class Nurse extends Employee {
     private Specialty specialty;
-    public Nurse(String name, Specialty specialty, String position, int password) {
-        super(name, position, password);
+
+    public Nurse(String name, Specialty specialty, String position, int password, int id) {
+        super(name, position, password, id);
         this.specialty = specialty;
     }
 
@@ -28,8 +29,14 @@ public class Nurse extends Employee {
     }
 
     @Override
-    public int getSalary() {
-        return 1000 + 10 * getSpecialty().getId();
+    public String getAll() {
+        return ("Nome: " + getName() + "\n" + "Especialidade: " + getSpecialty() + "\n" + "Cargo: " + getPosition()
+                + "\n" + "ID: " + getId() + "\n" + "Salário: " + getSalary());
+    }
+
+    @Override
+    public double getSalary() {
+        return 1000 + 1000 * specialty.getId();
     }
 
     public void updateAppointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap) {

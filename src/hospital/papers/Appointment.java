@@ -1,6 +1,8 @@
 package hospital.papers;
 
-public class Appointment {
+import java.io.Serializable;
+
+public class Appointment implements Serializable{
     private static int nextId = 1;
     private int id;
     private Patient patient;

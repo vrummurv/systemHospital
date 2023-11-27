@@ -1,19 +1,19 @@
 package hospital.papers;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class Patient {
+public class Patient implements Serializable {
     private String name;
     private String birthDate;
     private int id;
-    private static int nextId = 1;
 
-    public Patient(String name, String birthDate) {
+    public Patient(String name, String birthDate, int id) {
         this.name = name;
         this.birthDate = birthDate; // ddMMaaaa
-        this.id = nextId++;
+        this.id = id;
     }
 
     public String toString() {

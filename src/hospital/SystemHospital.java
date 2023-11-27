@@ -1,12 +1,9 @@
 package hospital;
 
-import java.net.PasswordAuthentication;
 import java.util.*;
 
 import hospital.papers.*;
 import hospital.staff.*;
-
-import hospital.staff.Specialty;
 
 public class SystemHospital {
     private List<Employee> employees;
@@ -19,22 +16,34 @@ public class SystemHospital {
         this.patients = new ArrayList<>();
         this.medicalRecordsMap = new HashMap<>();
 
-        Employee admin = new Admin("admin", "Administrativo", 1234);
-        employees.add(admin);
-        System.out.println(admin.toString());
+        // Employee admin = new Admin("admin", "Administrativo", 1234, 1);
+        // employees.add(admin);
+    }
 
-        Employee doctor = new Doctor("doctor", Specialty.CIRURGIAO_GERAL, "Medico", 1234);
-        employees.add(doctor);
-        System.out.println(doctor.toString());
 
-        Employee nurse = new Nurse("nurse", Specialty.DERMATOLOGISTA, "Enfermeiro", 1234);
-        employees.add(nurse);
-        System.out.println(nurse.toString());
 
-        Patient patient = new Patient("patient", "18/11/1999");
+    public void addEmployee(Employee employee) {
+        if (employee == null) {
+            System.out.println("Funcionário não pode ser nulo!");
+            return;
+        }
+        employees.add(employee);
+    }
+
+    public void addPatient(Patient patient) {
+        if (patient == null) {
+            System.out.println("Paciente não pode ser nulo!");
+            return;
+        }
         patients.add(patient);
-        System.out.println(patient.toString());
+    }
 
+    public void addMedicalRecords(int id, MedicalRecords medicalRecords) {
+        if (medicalRecords == null) {
+            System.out.println("Prontuário não pode ser nulo!");
+            return;
+        }
+        medicalRecordsMap.put(id, medicalRecords);
     }
 
     public List<Employee> getEmployees() {
@@ -145,5 +154,5 @@ public class SystemHospital {
                 System.out.println(medicalRecords.toString());
             }
         }
-    }   
+    }
 }
