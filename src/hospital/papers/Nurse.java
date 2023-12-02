@@ -39,52 +39,58 @@ public class Nurse extends Employee {
         return 1000 + 1000 * specialty.getId();
     }
 
-    public void updateAppointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap) {
-        Scanner input = new Scanner(System.in);
+    public void updateAppointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap)
+            throws Exception {
+        try {
 
-        System.out.println("\nId do paciente: ");
-        int idPatient = input.nextInt();
-        input.nextLine(); // Consumindo o \n
-        Patient patient = system.findPatientById(idPatient);
+            Scanner input = new Scanner(System.in);
 
-        MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
+            System.out.println("\nId do paciente: ");
+            int idPatient = input.nextInt();
+            input.nextLine(); // Consumindo o \n
+            Patient patient = system.findPatientById(idPatient);
 
-        if (patient == null || medicalRecords == null) {
-            System.out.println("Paciente não encontrado ou conulta não encontrada.");
-            return;
+            MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
+
+            if (patient == null || medicalRecords == null) {
+                throw new Exception("Paciente não encontrado ou conulta não encontrada.");
+
+            }
+
+            medicalRecords.toString();
+            System.out.println("\nId da consulta: ");
+            int idAppointment = input.nextInt();
+            input.nextLine(); // Consumindo o \n
+            Appointment appointment = medicalRecords.findAppointmentById(idAppointment);
+
+            System.out.println("\nMotivo da consulta: ");
+            String reasonOfAppointment = input.nextLine();
+
+            System.out.println("\nSintomas: ");
+            String symptoms = input.nextLine();
+
+            System.out.println("\nDiagnóstico: ");
+            String diagnosis = input.nextLine();
+
+            System.out.println("\nPrescrição: ");
+            String prescription = input.nextLine();
+
+            System.out.println("\nExame: ");
+            String test = input.nextLine();
+
+            System.out.println("\nResultado do exame: ");
+            String testResults = input.nextLine();
+
+            appointment.setReasonOfAppointment(reasonOfAppointment);
+            appointment.setSymptoms(symptoms);
+            appointment.setDiagnosis(diagnosis);
+            appointment.setPrescription(prescription);
+            appointment.setTest(test);
+            appointment.setTestResults(testResults);
+
+            System.out.println("====== Consulta atualizada com sucesso! ======");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        medicalRecords.toString();
-        System.out.println("\nId da consulta: ");
-        int idAppointment = input.nextInt();
-        input.nextLine(); // Consumindo o \n
-        Appointment appointment = medicalRecords.findAppointmentById(idAppointment);
-
-        System.out.println("\nMotivo da consulta: ");
-        String reasonOfAppointment = input.nextLine();
-
-        System.out.println("\nSintomas: ");
-        String symptoms = input.nextLine();
-
-        System.out.println("\nDiagnóstico: ");
-        String diagnosis = input.nextLine();
-
-        System.out.println("\nPrescrição: ");
-        String prescription = input.nextLine();
-
-        System.out.println("\nExame: ");
-        String test = input.nextLine();
-
-        System.out.println("\nResultado do exame: ");
-        String testResults = input.nextLine();
-
-        appointment.setReasonOfAppointment(reasonOfAppointment);
-        appointment.setSymptoms(symptoms);
-        appointment.setDiagnosis(diagnosis);
-        appointment.setPrescription(prescription);
-        appointment.setTest(test);
-        appointment.setTestResults(testResults);
-
-        System.out.println("====== Consulta atualizada com sucesso! ======");
     }
 }

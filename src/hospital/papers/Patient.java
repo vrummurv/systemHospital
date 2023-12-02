@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Patient implements Serializable {
     private String name;
@@ -28,16 +29,17 @@ public class Patient implements Serializable {
         return this.birthDate;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
     public int getAge() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Defino formato
-        
-        LocalDate dateBirth = LocalDate.parse(this.getBirthDate(), formatter); // Converto String para LocalDate e formata
+
+        LocalDate dateBirth = LocalDate.parse(this.getBirthDate(), formatter); // Converto String para LocalDate e
+                                                                               // formata
         LocalDate now = LocalDate.now(); // Data atual
-        
+
         Period age = Period.between(dateBirth, now); // Calculo a idade
 
         return age.getYears();
@@ -47,17 +49,16 @@ public class Patient implements Serializable {
         this.name = name;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(String birthDate) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Defino formato
-        
+
         LocalDate dateBirth = LocalDate.parse(birthDate, formatter); // Converto String para LocalDate e formata
         LocalDate now = LocalDate.now(); // Data atual
-        
+
         Period age = Period.between(dateBirth, now); // Calculo a idade
 
-        if (age.getYears() < 0) {
-            System.out.println("Data de nascimento inválida!");
-            return;
+        if (age.getYears() < 0 || age.getYears() > 130) {
+            throw new Exception("Data de nascimento inválida!");
         }
 
         this.birthDate = birthDate;

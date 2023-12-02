@@ -22,26 +22,23 @@ public class SystemHospital {
 
 
 
-    public void addEmployee(Employee employee) {
+    public void addEmployee(Employee employee) throws Exception {
         if (employee == null) {
-            System.out.println("Funcionário não pode ser nulo!");
-            return;
+            throw new Exception("Funcionário não pode ser nulo!");
         }
         employees.add(employee);
     }
 
-    public void addPatient(Patient patient) {
+    public void addPatient(Patient patient) throws Exception{
         if (patient == null) {
-            System.out.println("Paciente não pode ser nulo!");
-            return;
+            throw new Exception("Paciente não pode ser nulo!");
         }
         patients.add(patient);
     }
 
-    public void addMedicalRecords(int id, MedicalRecords medicalRecords) {
+    public void addMedicalRecords(int id, MedicalRecords medicalRecords) throws Exception{
         if (medicalRecords == null) {
-            System.out.println("Prontuário não pode ser nulo!");
-            return;
+            throw new Exception("Prontuário não pode ser nulo!");
         }
         medicalRecordsMap.put(id, medicalRecords);
     }
@@ -62,49 +59,51 @@ public class SystemHospital {
         return isLogged;
     }
 
-    public Employee findEmployeeById(int id) {
+    public Employee findEmployeeById(int id) throws Exception{
         for (Employee employee : employees) {
             if (employee.getId() == id) {
                 return employee;
             }
         }
-        System.out.println("Funcionário não encontrado!");
-        return null;
+        throw new Exception("Funcionário não encontrado!");
     }
 
-    public Patient findPatientById(int id) {
+    public Patient findPatientById(int id) throws Exception{
         for (Patient patient : patients) {
             if (patient.getId() == id) {
                 return patient;
             }
         }
-        System.out.println("Paciente não encontrado!");
-        return null;
+        throw new Exception("Paciente não encontrado!");
     }
 
     public boolean login(int id, int password) {
-        if (isLogged) {
-            System.out.println("Você já está logado como " + findEmployeeById(id).getName() + "!");
-            return true;
-        }
-
-        for (Employee employee : employees) {
-            if (employee.getId() == id && employee.getPassword() == password) {
-                isLogged = true;
+        try {
+            if (isLogged) {
+                System.out.println("Você já está logado como " + findEmployeeById(id).getName() + "!");
                 return true;
             }
+    
+            for (Employee employee : employees) {
+                if (employee.getId() == id && employee.getPassword() == password) {
+                    isLogged = true;
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        
         return false;
     }
 
-    public void logout() {
+    public void logout() throws Exception{
         if (isLogged) {
             isLogged = false;
             System.out.println("Logout realizado com sucesso!");
             return;
         } else {
-            System.out.println("Você não está logado!");
-            return;
+            throw new Exception("Você não está logado!");
         }
     }
 

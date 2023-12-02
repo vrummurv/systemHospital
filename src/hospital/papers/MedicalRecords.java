@@ -63,13 +63,12 @@ public class MedicalRecords implements Serializable{
         return appointments;
     }
 
-    public Appointment findAppointmentById(int id) {
+    public Appointment findAppointmentById(int id) throws Exception{
         for (Appointment appointment : appointments) {
             if (appointment.getId() == id) {
                 return appointment;
             }
         }
-        System.out.println("Consulta não encontrada!");
-        return null;
+        throw new Exception("Consulta não encontrada!");
     }
 }

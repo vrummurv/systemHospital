@@ -130,7 +130,8 @@ public class Admin extends Employee {
   }
 
   public void updatePatient(List patients, Patient patient, String name, String birthDate) {
-    Scanner scanner = new Scanner(System.in);
+    try {
+      Scanner scanner = new Scanner(System.in);
 
     if (patients.contains(patient)) {
       int aux = patients.indexOf(patient);
@@ -143,6 +144,9 @@ public class Admin extends Employee {
       return;
     }
 
+  } catch (Exception e) {
+    System.out.println(e.getMessage());
+  }
   }
 
 }
