@@ -3,7 +3,6 @@ package hospital.papers;
 import java.io.Serializable;
 
 public class Appointment implements Serializable{
-    private static int nextId = 1;
     private int id;
     private Patient patient;
     private Doctor doctor;
@@ -15,9 +14,8 @@ public class Appointment implements Serializable{
     private String testResults;
 
     public Appointment(Patient patient, Doctor doctor, String reasonOfAppointment,
-            String symptoms, String diagnosis, String prescription, String test, String testResults) {
-        this.id = nextId;
-        nextId++;
+            String symptoms, String diagnosis, String prescription, String test, String testResults, int id) {
+        this.id = id;
         this.patient = patient;
         this.doctor = doctor;
         this.reasonOfAppointment = reasonOfAppointment;

@@ -7,13 +7,11 @@ import java.util.List;
 public class MedicalRecords implements Serializable{
     private Patient patient;
     private int id;
-    private static int nextId = 1;
     private List<Appointment> appointments;
 
-    public MedicalRecords(Patient patient) {
+    public MedicalRecords(Patient patient, int id) {
         this.patient = patient;
-        this.id = nextId;
-        nextId++;
+        this.id = id;
         this.appointments = new ArrayList<>();
     }
 
@@ -28,7 +26,7 @@ public class MedicalRecords implements Serializable{
     }
 
     public void createAppointment(Doctor doctor, String reasonOfAppointment,
-            String symptoms, String diagnosis, String prescription, String test, String testResults) {
+            String symptoms, String diagnosis, String prescription, String test, String testResults, int id) {
         
         Appointment newAppointment = new Appointment(
                 patient,
@@ -38,7 +36,8 @@ public class MedicalRecords implements Serializable{
                 diagnosis,
                 prescription,
                 test,
-                testResults
+                testResults, 
+                id
         );
 
         addAppointment(newAppointment);

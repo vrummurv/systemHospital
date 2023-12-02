@@ -124,18 +124,6 @@ public class SystemHospital {
         }
     }
 
-    public void listPatients() {
-        for (Patient patient : patients) {
-            System.out.println(patient.toString());
-            for (MedicalRecords medicalRecords : medicalRecordsMap.values()) {
-                if (medicalRecords.getPatient().getId() == patient.getId()) {
-                    System.out.println(medicalRecords.toString());
-                }
-            }
-        }
-
-    }
-
     public void listEmployees() {
         for (Employee employee : employees) {
             System.out.println(employee.getAll());
@@ -152,6 +140,17 @@ public class SystemHospital {
         for (MedicalRecords medicalRecords : medicalRecordsMap.values()) {
             if (medicalRecords.getPatient().getId() == id) {
                 System.out.println(medicalRecords.toString());
+            }
+        }
+    }
+
+    public void listPatients(){
+        for(Patient patient : patients){
+            System.out.println(patient.toString());
+            for(MedicalRecords medicalRecords : medicalRecordsMap.values()){
+                if(medicalRecords.getPatient().getId() == patient.getId()){
+                    System.out.println(medicalRecords.toString());
+                }
             }
         }
     }

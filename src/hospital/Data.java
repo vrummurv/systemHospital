@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.Serializable;
+
 
 import hospital.papers.MedicalRecords;
 import hospital.papers.Patient;
 import hospital.staff.Employee;
 
-public class Data implements java.io.Serializable{
+public class Data implements Serializable{
      public void saveEmployees(List<Employee> employees) {
         try {
             FileOutputStream fileOut = new FileOutputStream("src/hospital/employees.ser");

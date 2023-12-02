@@ -118,7 +118,7 @@ public class Admin extends Employee {
       String birthDate, int id) {
 
     Patient newPatient = new Patient(patientName, birthDate, id); // Crie um novo paciente
-    MedicalRecords newMedicalRecords = new MedicalRecords(newPatient); // Associe um novo prontuário médico ao paciente
+    MedicalRecords newMedicalRecords = new MedicalRecords(newPatient, id); // Associe um novo prontuário médico ao paciente
     medicalRecordsMap.put(newPatient.getId(), newMedicalRecords); // Armazene a associação no mapa medicalRecordsMap
     patients.add(newPatient); // Adicione o paciente à lista de pacientes
     System.out.println("====== Paciente cadastrado com sucesso! ======");

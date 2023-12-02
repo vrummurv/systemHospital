@@ -51,6 +51,8 @@ public class Doctor extends Employee {
             return;
         }
 
+        int idConsulta = medicalRecordsMap.get(idPatient).getAppointments().size() + 1;
+
         System.out.println("\nMotivo da consulta: ");
         String reasonOfAppointment = input.nextLine();
 
@@ -72,17 +74,17 @@ public class Doctor extends Employee {
         MedicalRecords medicalRecords = medicalRecordsMap.get(idPatient);
 
         if (medicalRecords == null) {
-            MedicalRecords newMedicalRecords = new MedicalRecords(patient);
+            MedicalRecords newMedicalRecords = new MedicalRecords(patient, idPatient);
 
             newMedicalRecords.createAppointment(doctor, reasonOfAppointment, symptoms, diagnosis, prescription, test,
-                    testResults);
+                    testResults, idConsulta);
             medicalRecordsMap.put(idPatient, newMedicalRecords);
             System.out.println("====== Consulta cadastrada com sucesso! ======");
 
             return;
         } else {
             medicalRecords.createAppointment(doctor, reasonOfAppointment, symptoms, diagnosis, prescription, test,
-                    testResults);
+                    testResults, idConsulta);
             medicalRecordsMap.put(idPatient, medicalRecords);
 
             System.out.println("====== Consulta cadastrada com sucesso! ======");

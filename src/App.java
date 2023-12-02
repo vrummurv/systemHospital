@@ -388,6 +388,7 @@ public class App {
                                 }
 
                                 if (opcaoDoc == 0) {
+                                    data.saveMedicalRecordsMap(system.getMedicalRecordsMap());
                                     System.out.println("Saindo do sistema. Até mais!");
                                     break;
                                 }
