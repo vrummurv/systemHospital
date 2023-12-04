@@ -15,6 +15,9 @@ public class SystemHospital {
         this.employees = new ArrayList<>();
         this.patients = new ArrayList<>();
         this.medicalRecordsMap = new HashMap<>();
+
+        // Admin admin = new Admin("admin", "Administrativo", 123, 1);
+        // employees.add(admin);
     }
 
 

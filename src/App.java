@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.print.Doc;
-
 import hospital.*;
 import hospital.papers.Admin;
 import hospital.papers.Doctor;
@@ -27,17 +25,9 @@ public class App {
 
         // carregar informações do banco de dados
 
-       system.setEmployees(data.loadEmployees());
+        system.setEmployees(data.loadEmployees());
         system.setPatients(data.loadPatients());
         system.setMedicalRecordsMap(data.loadMedicalRecordsMap());
-
-        for (Patient patient : data.loadPatients()) {
-            system.addPatient(patient);
-        }
-
-        for (Map.Entry<Integer, MedicalRecords> medicalRecords : data.loadMedicalRecordsMap().entrySet()) {
-            system.addMedicalRecords(medicalRecords.getKey(), medicalRecords.getValue());
-        }
 
         while (true) {
             System.out.println("\n====== Menu ======");
@@ -85,9 +75,8 @@ public class App {
                                     System.out.println("==================");
                                     System.out.println("13. Listar Funcionários");
                                     System.out.println("==================");
-                                    System.out.println("14. Salvar Medico");                                    
+                                    System.out.println("14. Salvar Funcionários");                                    
                                     System.out.println("15. Salvar Pacientes");
-                                    System.out.println("16. Salvar Prontuarios");
 
                                     System.out.println("==================");
 
@@ -325,10 +314,6 @@ public class App {
                                         case 15:
                                             data.savePatients(system.getPatients());
                                             break;
-                                        case 16:
-                                            data.saveMedicalRecordsMap(system.getMedicalRecordsMap());
-                                            break;
-
                                         default:
                                             System.out.println("Opção inválida. Tente novamente.");
                                             break;

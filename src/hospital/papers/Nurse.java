@@ -36,7 +36,7 @@ public class Nurse extends Employee {
 
     @Override
     public double getSalary() {
-        return 1000 + 1000 * specialty.getId();
+        return 1000 + 100 * specialty.getId();
     }
 
     public void updateAppointment(SystemHospital system, Map<Integer, MedicalRecords> medicalRecordsMap)
