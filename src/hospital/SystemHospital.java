@@ -15,9 +15,6 @@ public class SystemHospital {
         this.employees = new ArrayList<>();
         this.patients = new ArrayList<>();
         this.medicalRecordsMap = new HashMap<>();
-
-        // Employee admin = new Admin("admin", "Administrativo", 1234, 1);
-        // employees.add(admin);
     }
 
 
@@ -41,6 +38,19 @@ public class SystemHospital {
             throw new Exception("Prontuário não pode ser nulo!");
         }
         medicalRecordsMap.put(id, medicalRecords);
+    }
+
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public void setMedicalRecordsMap(Map<Integer, MedicalRecords> medicalRecordsMap) {
+        this.medicalRecordsMap = medicalRecordsMap;
     }
 
     public List<Employee> getEmployees() {

@@ -10,7 +10,6 @@ import hospital.papers.Nurse;
 import hospital.papers.Patient;
 import hospital.staff.Employee;
 
-// Por que preciso importar isso aqui sendo que ja importei anteriormente
 import hospital.staff.Position;
 import hospital.staff.Specialty;
 
@@ -28,9 +27,9 @@ public class App {
 
         // carregar informações do banco de dados
 
-        for (Employee employee : data.loadEmployees()) {
-            system.addEmployee(employee);
-        }
+       system.setEmployees(data.loadEmployees());
+        system.setPatients(data.loadPatients());
+        system.setMedicalRecordsMap(data.loadMedicalRecordsMap());
 
         for (Patient patient : data.loadPatients()) {
             system.addPatient(patient);
@@ -43,7 +42,6 @@ public class App {
         while (true) {
             System.out.println("\n====== Menu ======");
             System.out.println("1. Login");
-            System.out.println("2. Salvar dados");
             System.out.println("0. Sair");
             System.out.println("==================");
 
@@ -87,7 +85,10 @@ public class App {
                                     System.out.println("==================");
                                     System.out.println("13. Listar Funcionários");
                                     System.out.println("==================");
-                                    System.out.println("14. Salvar dados");
+                                    System.out.println("14. Salvar Medico");                                    
+                                    System.out.println("15. Salvar Pacientes");
+                                    System.out.println("16. Salvar Prontuarios");
+
                                     System.out.println("==================");
 
                                     System.out.println("0. Logout");
@@ -320,7 +321,11 @@ public class App {
 
                                         case 14:
                                             data.saveEmployees(system.getEmployees());
+                                            break;
+                                        case 15:
                                             data.savePatients(system.getPatients());
+                                            break;
+                                        case 16:
                                             data.saveMedicalRecordsMap(system.getMedicalRecordsMap());
                                             break;
 
@@ -458,12 +463,7 @@ public class App {
                             System.out.println("Login ou senha inválidos!");
                         }
                         break;
-
-                    case 2:
-                        data.saveEmployees(system.getEmployees());
-                        data.savePatients(system.getPatients());
-                        data.saveMedicalRecordsMap(system.getMedicalRecordsMap());
-                        break;
+                        
                     case 0:
                         System.out.println("Saindo do sistema. Até mais!");
                         break;

@@ -1,5 +1,6 @@
 package hospital;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,13 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.io.Serializable;
 
-
 import hospital.papers.MedicalRecords;
 import hospital.papers.Patient;
 import hospital.staff.Employee;
 
-public class Data implements Serializable{
-     public void saveEmployees(List<Employee> employees) {
+public class Data implements Serializable {
+    public void saveEmployees(List<Employee> employees) {
         try {
             FileOutputStream fileOut = new FileOutputStream("src/hospital/employees.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -42,7 +42,7 @@ public class Data implements Serializable{
         }
     }
 
-    public void saveMedicalRecordsMap(Map <Integer, MedicalRecords> medicalRecordsMap) {
+    public void saveMedicalRecordsMap(Map<Integer, MedicalRecords> medicalRecordsMap) {
         try {
             FileOutputStream fileOut = new FileOutputStream("src/hospital/medicalRecordsMap.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -58,7 +58,8 @@ public class Data implements Serializable{
     public List<Employee> loadEmployees() {
         List<Employee> employees = new ArrayList<>();
         try {
-            employees = (List<Employee>) new ObjectInputStream(SystemHospital.class.getResourceAsStream("employees.ser")).readObject();
+            employees = (List<Employee>) new ObjectInputStream(new FileInputStream("src/hospital/employees.ser"))
+                    .readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -68,7 +69,8 @@ public class Data implements Serializable{
     public List<Patient> loadPatients() {
         List<Patient> patients = new ArrayList<>();
         try {
-            patients = (List<Patient>) new ObjectInputStream(SystemHospital.class.getResourceAsStream("patients.ser")).readObject();
+            patients = (List<Patient>) new ObjectInputStream(new FileInputStream("src/hospital/patients.ser"))
+                    .readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -78,17 +80,12 @@ public class Data implements Serializable{
     public Map<Integer, MedicalRecords> loadMedicalRecordsMap() {
         Map<Integer, MedicalRecords> medicalRecordsMap = new HashMap<>();
         try {
-            medicalRecordsMap = (Map<Integer, MedicalRecords>) new ObjectInputStream(SystemHospital.class.getResourceAsStream("medicalRecordsMap.ser")).readObject();
+            medicalRecordsMap = (Map<Integer, MedicalRecords>) new ObjectInputStream(
+                    new FileInputStream("src/hospital/medicalRecordsMap.ser")).readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return medicalRecordsMap;
     }
 
-    public void saveData(List<Employee> employees, List<Patient> patients,
-            Map<Integer, MedicalRecords> medicalRecordsMap) {
-        saveEmployees(employees);
-        savePatients(patients);
-        saveMedicalRecordsMap(medicalRecordsMap);
-    }
 }
